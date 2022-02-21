@@ -2,15 +2,25 @@ import discord
 import os
 import asyncio
 import random
+import json
 from webserver import alive
 from discord.ext import commands
 from discord.ext import tasks
 
-PING_DELAY = 300
-GAME = 'GENSHIN IMPACT'
-INSULTS = [
-    'TROGLODYTE', 'NECKBEARD', 'SHITLORD', 'FUCKFACE', 'DUMB CUNT', 'POOPY HEAD'
-]
+
+PING_DELAY = 0
+GAME = ''
+INSULTS = []
+IMAGE_URLS = []
+
+
+with open('./src/config.json', 'r') as file:
+    data = json.load(file)
+    PING_DELAY = data['ping_delay']
+    GAME = data['game']
+    INSULTS = data['insults']
+    IMAGE_URLS = data['image_urls']
+
 
 intents = discord.Intents.all()
 bot = commands.Bot(command_prefix=commands.when_mentioned_or('!ngi'),
@@ -47,8 +57,7 @@ async def look_for_genshin_players():
                         await channel.send(embed=discord.Embed(
                             title=title, description=desc, color=0xEE4B2B
                         ).set_image(
-                            url=
-                            'https://github.com/IonicArgon/NO-GENSHIN-IMPACT/blob/main/resources/shower.gif?raw=true'
+                            url=IMAGE_URLS[0]
                         ).set_footer(
                           text=footer_text
                         ))
@@ -60,7 +69,7 @@ async def look_for_genshin_players():
             await channel.send(embed=discord.Embed(
                 title=title, description=desc, color=0x66ff00
             ).set_image(
-              url='https://github.com/IonicArgon/NO-GENSHIN-IMPACT/blob/main/resources/good.jpg?raw=true'
+              url=IMAGE_URLS[1]
             ).set_footer(
                 text=footer_text
             ))
