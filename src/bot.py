@@ -7,10 +7,9 @@ from discord.ext import commands
 from discord.ext import tasks
 
 PING_DELAY = 300
-GAME = 'MONSTER HUNTER RISE'
+GAME = 'GENSHIN IMPACT'
 INSULTS = [
-    'TROGLODYTE', 'SMOOTHBRAIN', 'BITCH', 'SHITLORD', 'ASSHAT', 'CUM GUZZLER',
-    'POOPY HEAD'
+    'TROGLODYTE', 'NECKBEARD', 'SHITLORD', 'FUCKFACE', 'DUMB CUNT', 'POOPY HEAD'
 ]
 
 intents = discord.Intents.all()
@@ -31,6 +30,7 @@ async def on_ready():
 async def look_for_genshin_players():
     await bot.wait_until_ready()
     channel = bot.get_channel(int(os.getenv('ANNOUNCEMENTS')))
+    footer_text = 'bot made by Extro#7573'
 
     while not bot.is_closed():
         count = 0
@@ -43,21 +43,27 @@ async def look_for_genshin_players():
                     if activity.name.upper().find(GAME) != -1:
                         title = f'EW {member} IS PLAYING {GAME}'
                         desc = f'{member.mention} GO TAKE A SHOWER YOU SMELLY {random.choice(INSULTS)}'
-                        file = discord.File('./resources/shower.gif')
                         await channel.send(member.mention)
                         await channel.send(embed=discord.Embed(
-                            title=title, description=desc, color=0xEE4B2B),
-                                           file=file)
+                            title=title, description=desc, color=0xEE4B2B
+                        ).set_image(
+                            url=
+                            'https://github.com/IonicArgon/NO-GENSHIN-IMPACT/blob/main/resources/shower.gif?raw=true'
+                        ).set_footer(
+                          text=footer_text
+                        ))
                         count = count + 1
 
         if count == 0:
             title = f'no one is playing {GAME.lower()}'
             desc = 'good'
-            file = discord.File('./resources/good.jpg')
-            await channel.send(embed=discord.Embed(title=title,
-                                                   description=desc,
-                                                   color=0x66ff00),
-                               file=file)
+            await channel.send(embed=discord.Embed(
+                title=title, description=desc, color=0x66ff00
+            ).set_image(
+              url='https://github.com/IonicArgon/NO-GENSHIN-IMPACT/blob/main/resources/good.jpg?raw=true'
+            ).set_footer(
+                text=footer_text
+            ))
 
         await asyncio.sleep(PING_DELAY)
 
