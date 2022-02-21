@@ -3,6 +3,7 @@ import os
 import asyncio
 import random
 import json
+import datetime
 from webserver import alive
 from discord.ext import commands
 from discord.ext import tasks
@@ -44,15 +45,16 @@ async def look_for_genshin_players():
 
     while not bot.is_closed():
         count = 0
+        time = datetime.datetime.now()
         for member in bot.get_all_members():
             if member.name == bot.user.name:
                 continue
 
-            if member.activities != None:
+            if member.activities is not None:
                 for activity in member.activities:
                     if activity.name.upper().find(GAME) != -1:
                         title = f'EW {member} IS PLAYING {GAME}'
-                        desc = f'{member.mention} GO TAKE A SHOWER YOU SMELLY {random.choice(INSULTS)}'
+                        desc = f'{member.mention} GO TAKE A SHOWER YOU SMELLY {random.choice(INSULTS)}\nTimestamp: {time} UTC'
                         await channel.send(member.mention)
                         await channel.send(embed=discord.Embed(
                             title=title, description=desc, color=0xEE4B2B
@@ -65,7 +67,7 @@ async def look_for_genshin_players():
 
         if count == 0:
             title = f'no one is playing {GAME.lower()}'
-            desc = 'good'
+            desc = f'good\nTimestamp: {time} UTC'
             await channel.send(embed=discord.Embed(
                 title=title, description=desc, color=0x66ff00
             ).set_image(
