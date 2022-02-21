@@ -1,6 +1,17 @@
 {
-  "game": "GENSHIN IMPACT",
-  "ping_delay": 300,
+  "games": [
+    "GENSHIN IMPACT",
+    "TOUHOU",
+    "HEARTS OF IRON",
+    "LEAGUE OF LEGENDS",
+    "OVERWATCH",
+    "VALORANT",
+    "OMORI",
+    "ROBLOX",
+    "MINECRAFT",
+    "EARTHBOUND"
+  ],
+  "ping_delay": 600,
   "insults": [
     "TROGLODYTE",
     "NECKBEARD",
@@ -13,7 +24,15 @@
     "USELESS INDIVIDUAL",
     "FAT ASS",
     "RUBE",
-    "BRITISH"
+    "BRITISH",
+    "INCEL",
+    "SUSSY BAKA",
+    "DUTCHEE",
+    "PIG",
+    "COW",
+    "WHORE",
+    "BITCH",
+    "FURRY"
   ],
   "image_urls": [
     "https://github.com/IonicArgon/NO-GENSHIN-IMPACT/blob/main/resources/shower.gif?raw=true",

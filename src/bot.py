@@ -10,7 +10,7 @@ from discord.ext import tasks
 
 
 PING_DELAY = 0
-GAME = ''
+GAMES = []
 INSULTS = []
 IMAGE_URLS = []
 
@@ -18,7 +18,7 @@ IMAGE_URLS = []
 with open('./src/config.json', 'r') as file:
     data = json.load(file)
     PING_DELAY = data['ping_delay']
-    GAME = data['game']
+    GAMES = data['games']
     INSULTS = data['insults']
     IMAGE_URLS = data['image_urls']
 
@@ -34,7 +34,7 @@ bot.remove_command('help')
 async def on_ready():
     print('logged on as {0.user}'.format(bot))
     await bot.change_presence(activity=discord.Activity(
-        type=discord.ActivityType.playing, name='NO GENSHIN IMPACT'))
+        type=discord.ActivityType.playing, name='NO CRINGE GAMES'))
 
 
 @tasks.loop(seconds=10)
@@ -52,10 +52,12 @@ async def look_for_genshin_players():
 
             if member.activities is not None:
                 for activity in member.activities:
-                    if activity.name.upper().find(GAME) != -1:
-                        title = f'EW {member} IS PLAYING {GAME}'
-                        desc = f'{member.mention} GO TAKE A SHOWER YOU SMELLY {random.choice(INSULTS)}\nTimestamp: {time} UTC'
-                        await channel.send(member.mention)
+                    if activity.name is None:
+                        continue
+                    if any(substring in activity.name.upper() for substring in GAMES):
+                        title = f'EW {member} IS PLAYING {activity.name.upper()}'
+                        desc= f'{member.mention} GO TAKE A SHOWER YOU SMELLY {random.choice(INSULTS)}\nTimestamp: {time} UTC'
+                        await channel.send(f'{member.mention}')
                         await channel.send(embed=discord.Embed(
                             title=title, description=desc, color=0xEE4B2B
                         ).set_image(
@@ -64,9 +66,9 @@ async def look_for_genshin_players():
                           text=footer_text
                         ))
                         count = count + 1
-
+                        
         if count == 0:
-            title = f'no one is playing {GAME.lower()}'
+            title = 'no one is playing cringe games'
             desc = f'good\nTimestamp: {time} UTC'
             await channel.send(embed=discord.Embed(
                 title=title, description=desc, color=0x66ff00
