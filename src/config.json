@@ -15,25 +15,7 @@
   ],
   "ping_delay": 600,
   "insults": [
-    "TROGLODYTE",
-    "NECKBEARD",
-    "SHITLORD",
-    "FUCKFACE",
-    "DUMB CUNT",
-    "POOPY HEAD",
-    "PEDOPHILE",
-    "USELESS INDIVIDUAL",
-    "FAT ASS",
-    "RUBE",
-    "BRITISH",
-    "INCEL",
-    "SUSSY BAKA",
-    "DUTCHEE",
-    "PIG",
-    "COW",
-    "WHORE",
-    "BITCH",
-    "FURRY"
+    "poopyhead"
   ],
   "image_urls": [
     "https://github.com/IonicArgon/NO-GENSHIN-IMPACT/blob/main/resources/shower.gif?raw=true",
